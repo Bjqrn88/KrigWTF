@@ -1,0 +1,4 @@
+KrigWTF
+=======
+
+New Git project..
