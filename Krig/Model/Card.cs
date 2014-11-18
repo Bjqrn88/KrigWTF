@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Krig.ViewModel
+namespace Krig.Model
 {
     class Card
     {

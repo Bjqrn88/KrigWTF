@@ -3,24 +3,39 @@ using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Krig.Model;
 
 namespace Krig.ViewModel
 {
     class GamePlay
     {
         private ArrayList deck1, deck2, swapPile1, swapPile2, warWinnings;
+        private int turnCounter;
         private Random random = new Random();
 
-        public GamePlay()
+        public GamePlay(Boolean fromSave, SaveGameData savedGame)
         {
-            generateDecks();
-            Console.WriteLine("Deck size: " + deck1.Count);
-            deck1 = shuffleDeck(deck1);
-            deck2 = shuffleDeck(deck2);
-            long start = Environment.TickCount;
+            if (fromSave == true && savedGame != null) //Load a saved game.
+            {
+                turnCounter = savedGame.NumberOfTurns;
+                deck1 = savedGame.Player1Deck;
+                deck2 = savedGame.Player2Deck;
+                swapPile1 = savedGame.Player1Swap;
+                swapPile2 = savedGame.Player2Swap;
+            }
+            else //Initialize new game.
+            {
+                generateDecks();
+                deck1 = shuffleDeck(deck1);
+                deck2 = shuffleDeck(deck2);
+                //Setup swap piles
+                swapPile1 = new ArrayList();
+                swapPile2 = new ArrayList();
+                warWinnings = new ArrayList();
+                turnCounter = 1;
+            }
+            //Start
             play();
-            long end = Environment.TickCount;
-            Console.WriteLine("Game time: " + (end - start)/1000);
         }
 
 
@@ -42,12 +57,7 @@ namespace Krig.ViewModel
             }
         }
         private void play()
-        {
-            //Setup swap piles
-            swapPile1 = new ArrayList();
-            swapPile2 = new ArrayList();
-            warWinnings = new ArrayList();
-            int turnCounter = 1;
+        {            
             do
             {
                 Console.WriteLine("Turn " + turnCounter + " begins");
@@ -206,7 +216,7 @@ namespace Krig.ViewModel
         }
 
         /**
-         * Draws 3 cards from a deck. 
+         * Draws cards from a deck. 
         */
         private ArrayList drawCards(ArrayList deck, int numberOfCards)
         {
@@ -241,8 +251,8 @@ namespace Krig.ViewModel
             //Loop though suits
             for (int s = 0; s < 4; s++)
             {
-                String suit = ""; //Init value, should be changed by code.
-                int color = 2; //Init value, should be changed by code.
+                String suit = "";
+                int color =-1;
                 switch (s)
                 {
                     case 0:
@@ -269,7 +279,6 @@ namespace Krig.ViewModel
                 for (int i = 1; i <= 13; i++)
                 {
                     card = new Card(i, color, suit);
-                    //Console.WriteLine(card.ToString());
                     if (color == 0)
                     {
                         deck1.Add(card);
@@ -289,8 +298,6 @@ namespace Krig.ViewModel
             while (deck.Count > 0)
             {
                 int randomIndex = random.Next(0, deck.Count - 1);
-                //Console.WriteLine("Random value is: " + randomIndex);
-
                 shuffledDeck.Add(deck[randomIndex]);
                 deck.RemoveAt(randomIndex);
             }
