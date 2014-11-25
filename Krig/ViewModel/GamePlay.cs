@@ -230,8 +230,8 @@ namespace Krig.ViewModel
 
         private Card drawSingleCard(List<Card> deck)
         {
-            Card card = (Card)deck[0];
-            deck.RemoveAt(0);
+            Card card = deck.FirstOrDefault();
+            deck.Remove(card);
             return card;
         }
 
