@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Krig.Model;
 
-namespace Krig.ViewModel
+namespace Krig.Utility
 {
     class SaveLoad
     {
