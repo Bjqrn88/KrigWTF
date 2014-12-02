@@ -13,18 +13,22 @@ namespace Krig.ViewModel
         private int turnCounter;
         private Random random = new Random();
 
-        public GamePlay(Boolean fromSave, SaveGameData savedGame)
+        public GamePlay()//Boolean fromSave, SaveGameData savedGame)
         {
+            /*
             if (fromSave == true && savedGame != null) //Load a saved game.
             {
+                
                 turnCounter = savedGame.NumberOfTurns;
                 deck1 = savedGame.Player1Deck;
                 deck2 = savedGame.Player2Deck;
                 swapPile1 = savedGame.Player1Swap;
                 swapPile2 = savedGame.Player2Swap;
+                 
             }
             else //Initialize new game.
-            {
+             * {
+            */
                 generateDecks();
                 deck1 = shuffleDeck(deck1);
                 deck2 = shuffleDeck(deck2);
@@ -33,8 +37,9 @@ namespace Krig.ViewModel
                 swapPile2 = new ArrayList();
                 warWinnings = new ArrayList();
                 turnCounter = 1;
-            }
+            //}
             //Start
+                 
             play();
         }
 
