@@ -14,6 +14,7 @@ namespace Krig.ViewModel
         private List<Card> deck1, deck2, swapPile1, swapPile2, warWinnings;
         private int turnCounter;
         private Random random = new Random();
+        int player1AdjustSize, player2AdjustSize;
 
         public GamePlay()
         {
@@ -52,6 +53,16 @@ namespace Krig.ViewModel
             return drawSingleCard(deck2);
         }
 
+        public List<Card> getWarCards() {
+            return drawCards(deck1, player1AdjustSize);
+        }
+
+        public List<Card> getAIWarCards()
+        {
+            return drawCards(deck2, player2AdjustSize);
+        }        
+        
+
         public Boolean gameOver()
         {
             if (deck1.Count == 0 && swapPile1.Count == 0)
@@ -70,7 +81,7 @@ namespace Krig.ViewModel
             }
         }
 
-        public void playRound(Card player1Card, Card player2Card)
+        public int playRound(Card player1Card, Card player2Card)
         {            
                 Console.WriteLine("Turn " + turnCounter + " begins");
                 
@@ -107,6 +118,8 @@ namespace Krig.ViewModel
                 if (player1Card.Value == player2Card.Value)
                 {
                     Console.WriteLine("War declared");
+                    return 0;
+                    /*
                     if (war())
                     {
                         moveCards(warWinnings, swapPile1);
@@ -123,6 +136,7 @@ namespace Krig.ViewModel
                         warWinnings.Clear();
                         Console.WriteLine("Player 2 wins war!");
                     }
+                    */
                 }
                 //Player 1 wins
                 else if (player1Card.Value > player2Card.Value)
@@ -130,6 +144,7 @@ namespace Krig.ViewModel
                     Console.WriteLine("Player 1 wins round");
                     swapPile1.Add(player1Card);
                     swapPile1.Add(player2Card);
+                    
                 }
                 //Player 2 wins
                 else
@@ -137,6 +152,7 @@ namespace Krig.ViewModel
                     Console.WriteLine("Player 2 wins round");
                     swapPile2.Add(player1Card);
                     swapPile2.Add(player2Card);
+                    
                 }
                 Console.WriteLine("Deck sizes: deck1: " + deck1.Count + " deck2: " + deck2.Count);
                 Console.WriteLine("Swap sizes: swap1: " + swapPile1.Count + " swap2: " + swapPile2.Count);
@@ -160,17 +176,20 @@ namespace Krig.ViewModel
                 if (cardsInPlay != 52)
                 {
                     Console.WriteLine("CARD COUNT ERROR: " + cardsInPlay);
+                    return -1;
                 }
+                return 1;
         }
         /**
          * Handles war condition
          * Returns true if player1(Human) wins
         */
-        private Boolean war()
+
+        public void checkWarConditions()
         {
             //Check players have enough cards.
-            int player1AdjustSize = 3;
-            int player2AdjustSize = 3;
+            player1AdjustSize = 3;
+            player2AdjustSize = 3;
             if (deck1.Count < 4)
             {
                 moveCards(deck1, swapPile1);
@@ -193,9 +212,9 @@ namespace Krig.ViewModel
                     player2AdjustSize = deck2.Count;
                 }
             }
-            List<Card> player1Cards = drawCards(deck1, player1AdjustSize);
-            List<Card> player2Cards = drawCards(deck2, player2AdjustSize);
-
+        }
+        public int war(List<Card> player1Cards, List<Card> player2Cards, int playerChoice)
+        {
             //Add cards to war array
             moveCards(player1Cards, warWinnings);
             moveCards(player2Cards, warWinnings);
@@ -212,8 +231,7 @@ namespace Krig.ViewModel
             }
 
             //Select card
-            int player1Pick = random.Next(0, player1AdjustSize-1);
-            Card player1Card = (Card)player1Cards[player1Pick];
+            Card player1Card = (Card)player1Cards[playerChoice];
             Console.WriteLine("Player 1 picks: " + player1Card.ToString());
 
             int player2Pick = random.Next(0, player2AdjustSize-1);
@@ -223,17 +241,17 @@ namespace Krig.ViewModel
             //Player 1 wins
             if (player1Card.Value > player2Card.Value)
             {
-                return true;
+                return 1;
             }
             //Player 2 wins
             else if (player2Card.Value > player1Card.Value)
             {
-                return false;
+                return 2;
             }
             else
             {
                 //Recursive call.
-                return war();
+                return 0;
             }
         }
 
