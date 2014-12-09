@@ -1,8 +1,10 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using GalaSoft.MvvmLight;
@@ -63,7 +65,16 @@ namespace Krig.ViewModel
 
         public void DrawWar()
         {
-            
+            int x = 365;
+            List<Card> warCards = new List<Card>();
+            warCards = gameplay.getWarCards();
+            gameplay.checkWarConditions();
+
+            for (int i = 0; i < warCards.Count; i++)
+            {
+                undoRedoController.DrawAndExecute(new DrawCardCommand(cards, new Cards() { CardValue = warCards[i].Value.ToString(), X = x, Y = 235 }));
+                x = x - 25;
+            }
 
         }
 
