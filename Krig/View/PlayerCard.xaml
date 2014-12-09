@@ -10,7 +10,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid Height="50" Width="33">
         <Rectangle Fill="AntiqueWhite"/>
-        <Label x:Name="PlayerCardLabel" Content="S" HorizontalAlignment="Center"  VerticalAlignment="Center" FontSize="20"/>
+        <Label x:Name="PlayerCardLabel" Content="S" HorizontalAlignment="Center"  VerticalAlignment="Center" FontSize="20" IsEnabled="False"/>
     </Grid>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="MouseDown">

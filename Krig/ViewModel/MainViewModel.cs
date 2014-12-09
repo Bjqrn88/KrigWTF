@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -66,7 +65,7 @@ namespace Krig.ViewModel
             if (Mouse.Captured != null)
             {
                 FrameworkElement cardVisualElement = (FrameworkElement)e.MouseDevice.Target;
-                Cards cardsModel = (Cards) cardVisualElement.DataContext;
+                Cards cardsModel = (Cards)cardVisualElement.DataContext;
                 Canvas canvas = FindParentOfType<Canvas>(cardVisualElement);
                 Point mousePosition = Mouse.GetPosition(canvas);
                 if (moveCardPoint == default(Point)) moveCardPoint = mousePosition;
