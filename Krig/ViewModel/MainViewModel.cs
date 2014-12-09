@@ -17,6 +17,7 @@ namespace Krig.ViewModel
     public class MainViewModel : ViewModelBase
     {
         private UndoRedoController undoRedoController = UndoRedoController.GetInstance();
+        //private GamePlay gameplay = new GamePlay();
 
         private Point moveCardPoint;
 
@@ -90,10 +91,11 @@ namespace Krig.ViewModel
             undoRedoController.DrawAndExecute(new RemoveCardCommand(cards, _cards.Cast<Cards>().ToList()));
         }
 
-        private static T FindParentOfType<T>(DependencyObject o)
+        private static T FindParentOfType<T>(DependencyObject o) where T : class
         {
-            dynamic parent = VisualTreeHelper.GetParent(o);
-            return parent.GetType().IsAssignableFrom(typeof(T)) ? parent : FindParentOfType<T>(parent);
+            DependencyObject parent = VisualTreeHelper.GetParent(o);
+            if (parent == null) return null;
+            return parent is T ? parent as T : FindParentOfType<T>(parent);
         }
        
     }
