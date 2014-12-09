@@ -1,4 +1,7 @@
-﻿namespace Krig.Model
+﻿using System;
+using Krig.View;
+
+namespace Krig.Model
 {
     public class Cards : NotifyBase
     {
@@ -25,9 +28,18 @@
             set { isSelected = value; NotifyPropertyChanged("IsSelected");}
         }
 
+        private String cardValue;
+
+        public String CardValue
+        {
+            get { return cardValue; }
+            set { cardValue = value; NotifyPropertyChanged("CardValue"); }
+        }
+
         public Cards()
         {
-            X = Y = 100;
+            X = 365;
+            Y = 395;
         }
     }
 }

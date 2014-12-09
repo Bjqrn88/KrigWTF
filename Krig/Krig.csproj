@@ -91,6 +91,9 @@
     <Compile Include="View\board.xaml.cs">
       <DependentUpon>board.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\CardStackPlayer.xaml.cs">
+      <DependentUpon>CardStackPlayer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\PlayerCard.xaml.cs">
       <DependentUpon>PlayerCard.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -98,6 +101,10 @@
     <Compile Include="View\Ribbon.xaml.cs">
       <DependentUpon>Ribbon.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\CardStackPlayer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
