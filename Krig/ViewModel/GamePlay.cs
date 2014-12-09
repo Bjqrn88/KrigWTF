@@ -39,12 +39,15 @@ namespace Krig.ViewModel
                 warWinnings = new List<Card>();
                 turnCounter = 1;
             }
-            //Start
-            play();
+            //play();
         }
 
+        public Card drawACard()
+        {
+            return drawSingleCard(deck1);
+        }
 
-        private Boolean gameOver()
+        public Boolean gameOver()
         {
             if (deck1.Count == 0 && swapPile1.Count == 0)
             {
@@ -61,46 +64,36 @@ namespace Krig.ViewModel
                 return false;
             }
         }
-        private void play()
-        {            
-            do
-            {
-                Console.WriteLine("Turn " + turnCounter + " begins");
-                if (turnCounter >= 10)
-                {
-                    
-                    SaveGameData data = new SaveGameData();
-                    data.NumberOfTurns = turnCounter;
-                    data.Player1Deck = deck1;
-                    data.Player1Swap = swapPile1;
-                    data.Player2Deck = deck2;
-                    data.Player2Swap = swapPile2;
-                    Console.WriteLine("Saving");
-                    SaveLoad save = new SaveLoad(data);
-                    save.saveToXML();
-                    break;
-                    
-                }
 
-                //Check if a player has run out of cards
-                if (deck1.Count == 0)
+        public void playRound(Card player1Card)
+        {            
+                Console.WriteLine("Turn " + turnCounter + " begins");
+                
+            /*    
+            if (turnCounter >= 10)
                 {
-                    Console.WriteLine("Player 1 uses swap");
-                    deck1 = shuffleDeck(swapPile1);
-                    Console.WriteLine("Deck 1 size after swap: " + deck1.Count);
-                }
-                if (deck2.Count == 0)
-                {
-                    Console.WriteLine("Player 2 uses swap");
-                    deck2 = shuffleDeck(swapPile2);
-                    Console.WriteLine("Deck 2 size after swap: " + deck2.Count);
-                }
+                    
+                SaveGameData data = new SaveGameData();
+                data.NumberOfTurns = turnCounter;
+                data.Player1Deck = deck1;
+                data.Player1Swap = swapPile1;
+                data.Player2Deck = deck2;
+                data.Player2Swap = swapPile2;
+                Console.WriteLine("Saving");
+                SaveLoad save = new SaveLoad(data);
+                save.saveToXML();
+                break;
+                    
+            }
+            */
+
+                
                 
                 //Draw cards from decks.
                 Console.WriteLine("Draw cards");
 
-                Card player1Card = drawSingleCard(deck1);
-                Console.WriteLine("Card 1: " + player1Card.Value);
+                //Card player1Card = drawSingleCard(deck1);
+                //Console.WriteLine("Card 1: " + player1Card.Value);
 
                 Card player2Card = drawSingleCard(deck2);
                 Console.WriteLine("Card 2: " + player2Card.Value);
@@ -142,15 +135,27 @@ namespace Krig.ViewModel
                 }
                 Console.WriteLine("Deck sizes: deck1: " + deck1.Count + " deck2: " + deck2.Count);
                 Console.WriteLine("Swap sizes: swap1: " + swapPile1.Count + " swap2: " + swapPile2.Count);
+
+                //Check if a player has run out of cards
+                if (deck1.Count == 0)
+                {
+                    Console.WriteLine("Player 1 uses swap");
+                    deck1 = shuffleDeck(swapPile1);
+                    Console.WriteLine("Deck 1 size after swap: " + deck1.Count);
+                }
+                if (deck2.Count == 0)
+                {
+                    Console.WriteLine("Player 2 uses swap");
+                    deck2 = shuffleDeck(swapPile2);
+                    Console.WriteLine("Deck 2 size after swap: " + deck2.Count);
+                }
+
                 turnCounter++;
                 int cardsInPlay = deck1.Count + deck2.Count + swapPile1.Count + swapPile2.Count;
                 if (cardsInPlay != 52)
                 {
                     Console.WriteLine("CARD COUNT ERROR: " + cardsInPlay);
-                    break;
                 }
-            } while (!gameOver());
-            Console.WriteLine("Game ended");
         }
         /**
          * Handles war condition
@@ -225,8 +230,9 @@ namespace Krig.ViewModel
                 //Recursive call.
                 return war();
             }
-
         }
+
+        
 
         private Card drawSingleCard(List<Card> deck)
         {
