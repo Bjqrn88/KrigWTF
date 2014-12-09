@@ -17,6 +17,8 @@ namespace Krig.ViewModel
     {
         private UndoRedoController undoRedoController = UndoRedoController.GetInstance();
         private GamePlay gameplay = new GamePlay();
+        private Card card,cpuCard;
+        
 
         private Point moveCardPoint;
 
@@ -52,8 +54,17 @@ namespace Krig.ViewModel
 
         public void DrawCard()
         {
-            int value = gameplay.drawACard().Value;
-            undoRedoController.DrawAndExecute(new DrawCardCommand(cards, new Cards(){CardValue = value.ToString()}));
+            card = gameplay.drawACard();
+            cpuCard = gameplay.getAICard();
+            undoRedoController.DrawAndExecute(new DrawCardCommand(cards, new Cards(){CardValue = card. Value.ToString()}));
+            undoRedoController.DrawAndExecute(new DrawCardCommand(cards, new Cards() { CardValue = cpuCard.Value.ToString(), X = 365, Y = 35}));
+            gameplay.playRound(card,cpuCard);
+        }
+
+        public void DrawWar()
+        {
+            
+
         }
 
         public void MouseDownCard(MouseButtonEventArgs e)
@@ -88,6 +99,7 @@ namespace Krig.ViewModel
 
         public void RemoveCard(IList _cards)
         {
+            _cards.Add(new Cards() {IsSelected = true});
             undoRedoController.DrawAndExecute(new RemoveCardCommand(cards, _cards.Cast<Cards>().ToList()));
         }
 
