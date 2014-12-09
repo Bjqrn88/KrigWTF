@@ -1,15 +1,16 @@
-﻿using System;
+﻿//using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Krig.Model
 {
-    class SaveGameData
+    public class SaveGameData
     {
         private int numberOfTurns;
-        private ArrayList player1Deck, player2Deck, player1Swap, player2Swap;
+        private List<Card> player1Deck, player2Deck, player1Swap, player2Swap;
 
         /*
          *Serialization requires public parameterless constructor
@@ -28,7 +29,7 @@ namespace Krig.Model
             }
         }
 
-        public ArrayList Player1Deck
+        public List<Card> Player1Deck
         {
             get
             {
@@ -40,7 +41,7 @@ namespace Krig.Model
             }
         }
 
-        public ArrayList Player2Deck
+        public List<Card> Player2Deck
         {
             get
             {
@@ -52,7 +53,7 @@ namespace Krig.Model
             }
         }
 
-        public ArrayList Player1Swap
+        public List<Card> Player1Swap
         {
             get
             {
@@ -64,7 +65,7 @@ namespace Krig.Model
             }
         }
 
-        public ArrayList Player2Swap
+        public List<Card> Player2Swap
         {
             get
             {

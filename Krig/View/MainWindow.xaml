@@ -3,14 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:view="clr-namespace:Krig.View"
         xmlns:viewModel="clr-namespace:Krig.ViewModel"
-        Title="MainWindow" Height="600" Width="800">
-    <Window.DataContext>
-        <viewModel:GamePlay />
-    </Window.DataContext>
-    <DockPanel>
-        <view:RibbonMenu DockPanel.Dock="Top"/>
-        <view:Board />
-        
-       
+        Title="Krig" Height="660" Width="800" ResizeMode="NoResize">
+        <Window.DataContext>
+            <viewModel:MainViewModel />
+        </Window.DataContext>
+        <DockPanel>
+        <view:Ribbon DockPanel.Dock="Top"/>
+        <Grid>
+            <view:Board/>
+            <ItemsControl ItemsSource="{Binding cards}"/>
+        </Grid>
     </DockPanel>
 </Window>

@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="Krig.View.Ribbon"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:r="clr-namespace:System.Windows.Controls.Ribbon;assembly=System.Windows.Controls.Ribbon"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <r:Ribbon>
+            <!-- <RibbonTab Header="Test" />-->
+            <r:RibbonTab Header="Commands">
+                <!-- kig her http://teusje.wordpress.com/2009/08/12/wpf-office-ribbon-control/ -->
+                <r:RibbonGroup>
+                    <r:RibbonButton Label="New Game" Width="66" Height="65" LargeImageSource="new.png"/>
+                    <r:RibbonButton Label="Load" Width="50" Height="65" LargeImageSource="load.png"/>
+                    <r:RibbonButton Label="Save" Width="50" Height="65" LargeImageSource="save.png"/>
+                </r:RibbonGroup>
+                <r:RibbonGroup>
+                    <r:RibbonButton Label="Undo" Command="{Binding UndoCommand}" Width="50" Height="65" LargeImageSource="undo.png"/>
+                    <r:RibbonButton Label="Redo" Command="{Binding RedoCommand}" Width="50" Height="65" LargeImageSource="redo.png"/>
+                </r:RibbonGroup>
+                <RibbonGroup>
+                    <r:RibbonButton Label="Settings" Width="50" Height="65" LargeImageSource="settings.png"/>
+                    <r:RibbonButton Label="Cheat" Width="50" Height="65" LargeImageSource="cheat.png"/>
+                </RibbonGroup>
+            </r:RibbonTab>
+        </r:Ribbon>
+    </Grid>
+</UserControl>

@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Krig.View
 {
     /// <summary>
-    /// Interaction logic for Board.xaml
+    /// Interaction logic for War3C.xaml
     /// </summary>
-    public partial class Board : UserControl
+    public partial class War3C : UserControl
     {
-        public Board()
+        public War3C()
         {
             InitializeComponent();
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,11 +17,11 @@ using System.Windows.Shapes;
 namespace Krig.View
 {
     /// <summary>
-    /// Interaction logic for Board.xaml
+    /// Interaction logic for PlayerCard.xaml
     /// </summary>
-    public partial class Board : UserControl
+    public partial class PlayerCard : UserControl
     {
-        public Board()
+        public PlayerCard()
         {
             InitializeComponent();
         }

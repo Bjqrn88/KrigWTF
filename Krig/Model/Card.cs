@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Krig.Model
 {
-    class Card
+    public class Card
     {
         private int value;
         private int color; //0 for black, 1 for red
@@ -18,6 +14,8 @@ namespace Krig.Model
             this.color = color;
             this.suit = suit;
         }
+
+        public Card() { }
 
         public int Value
         {

@@ -4,42 +4,42 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Krig.Model;
+using Krig.Utility;
+using System.Collections.Generic;
 
 namespace Krig.ViewModel
 {
-    class GamePlay
+    public class GamePlay
     {
-        private ArrayList deck1, deck2, swapPile1, swapPile2, warWinnings;
+        private List<Card> deck1, deck2, swapPile1, swapPile2, warWinnings;
         private int turnCounter;
         private Random random = new Random();
 
-        public GamePlay()//Boolean fromSave, SaveGameData savedGame)
+        public GamePlay()
         {
-            /*
+            Boolean fromSave = false;
+            SaveGameData savedGame = null;
             if (fromSave == true && savedGame != null) //Load a saved game.
             {
-                
                 turnCounter = savedGame.NumberOfTurns;
                 deck1 = savedGame.Player1Deck;
                 deck2 = savedGame.Player2Deck;
                 swapPile1 = savedGame.Player1Swap;
                 swapPile2 = savedGame.Player2Swap;
-                 
             }
             else //Initialize new game.
-             * {
-            */
+            {
+            
                 generateDecks();
                 deck1 = shuffleDeck(deck1);
                 deck2 = shuffleDeck(deck2);
                 //Setup swap piles
-                swapPile1 = new ArrayList();
-                swapPile2 = new ArrayList();
-                warWinnings = new ArrayList();
+                swapPile1 = new List<Card>();
+                swapPile2 = new List<Card>();
+                warWinnings = new List<Card>();
                 turnCounter = 1;
-            //}
+            }
             //Start
-                 
             play();
         }
 
@@ -66,6 +66,21 @@ namespace Krig.ViewModel
             do
             {
                 Console.WriteLine("Turn " + turnCounter + " begins");
+                if (turnCounter >= 10)
+                {
+                    
+                    SaveGameData data = new SaveGameData();
+                    data.NumberOfTurns = turnCounter;
+                    data.Player1Deck = deck1;
+                    data.Player1Swap = swapPile1;
+                    data.Player2Deck = deck2;
+                    data.Player2Swap = swapPile2;
+                    Console.WriteLine("Saving");
+                    SaveLoad save = new SaveLoad(data);
+                    save.saveToXML();
+                    break;
+                    
+                }
 
                 //Check if a player has run out of cards
                 if (deck1.Count == 0)
@@ -168,8 +183,8 @@ namespace Krig.ViewModel
                     player2AdjustSize = deck2.Count;
                 }
             }
-            ArrayList player1Cards = drawCards(deck1, player1AdjustSize);
-            ArrayList player2Cards = drawCards(deck2, player2AdjustSize);
+            List<Card> player1Cards = drawCards(deck1, player1AdjustSize);
+            List<Card> player2Cards = drawCards(deck2, player2AdjustSize);
 
             //Add cards to war array
             moveCards(player1Cards, warWinnings);
@@ -213,19 +228,19 @@ namespace Krig.ViewModel
 
         }
 
-        private Card drawSingleCard(ArrayList deck)
+        private Card drawSingleCard(List<Card> deck)
         {
-            Card card = (Card)deck[0];
-            deck.RemoveAt(0);
+            Card card = deck.FirstOrDefault();
+            deck.Remove(card);
             return card;
         }
 
         /**
          * Draws cards from a deck. 
         */
-        private ArrayList drawCards(ArrayList deck, int numberOfCards)
+        private List<Card> drawCards(List<Card> deck, int numberOfCards)
         {
-            ArrayList cards = new ArrayList();
+            List<Card> cards = new List<Card>();
             for (int i = 0; i < numberOfCards; i++)
             {
                 cards.Add(deck[0]);
@@ -236,21 +251,27 @@ namespace Krig.ViewModel
         /**
          * Moves cards from one array to another.
         */
-        private void moveCards(ArrayList from, ArrayList to)
+        private void moveCards(List<Card> from, List<Card> to)
         {
-            for (int i = 0; i < from.Count; i++)
+            foreach (var item in from)
             {
-                Card c = (Card)from[i];
-                to.Add(c);
-                from.Remove(i);
+                to.Add(item);
+                from.Remove(item);
             }
+
+            //for (int i = 0; i < from.Count; i++)
+            //{
+            //    Card c = (Card)from[i];
+            //    to.Add(c);
+            //    from.Remove(i);
+            //}
         }
 
         //Generates cards and creates a black and a red deck.
         private void generateDecks()
         {
-            deck1 = new ArrayList();
-            deck2 = new ArrayList();
+            deck1 = new List<Card>();
+            deck2 = new List<Card>();
             //Generate cards.
             Card card;
             //Loop though suits
@@ -296,9 +317,9 @@ namespace Krig.ViewModel
             }
         }
 
-        private ArrayList shuffleDeck(ArrayList deck)
+        private List<Card> shuffleDeck(List<Card> deck)
         {
-            ArrayList shuffledDeck = new ArrayList();
+            List<Card> shuffledDeck = new List<Card>();
 
             while (deck.Count > 0)
             {

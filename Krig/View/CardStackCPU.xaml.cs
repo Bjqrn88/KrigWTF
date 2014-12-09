@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Krig.View
 {
     /// <summary>
-    /// Interaction logic for Board.xaml
+    /// Interaction logic for CardStackCPU.xaml
     /// </summary>
-    public partial class Board : UserControl
+    public partial class CardStackCPU : UserControl
     {
-        public Board()
+        public CardStackCPU()
         {
             InitializeComponent();
         }
