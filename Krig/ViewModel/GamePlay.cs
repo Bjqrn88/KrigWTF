@@ -47,6 +47,11 @@ namespace Krig.ViewModel
             return drawSingleCard(deck1);
         }
 
+        public Card getAICard()
+        {
+            return drawSingleCard(deck2);
+        }
+
         public Boolean gameOver()
         {
             if (deck1.Count == 0 && swapPile1.Count == 0)
@@ -65,7 +70,7 @@ namespace Krig.ViewModel
             }
         }
 
-        public void playRound(Card player1Card)
+        public void playRound(Card player1Card, Card player2Card)
         {            
                 Console.WriteLine("Turn " + turnCounter + " begins");
                 
@@ -95,8 +100,8 @@ namespace Krig.ViewModel
                 //Card player1Card = drawSingleCard(deck1);
                 //Console.WriteLine("Card 1: " + player1Card.Value);
 
-                Card player2Card = drawSingleCard(deck2);
-                Console.WriteLine("Card 2: " + player2Card.Value);
+                //Card player2Card = drawSingleCard(deck2);
+                //Console.WriteLine("Card 2: " + player2Card.Value);
 
                 //Declare war
                 if (player1Card.Value == player2Card.Value)
