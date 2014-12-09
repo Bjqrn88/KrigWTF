@@ -16,7 +16,7 @@ namespace Krig.ViewModel
     public class MainViewModel : ViewModelBase
     {
         private UndoRedoController undoRedoController = UndoRedoController.GetInstance();
-        //private GamePlay gameplay = new GamePlay();
+        private GamePlay gameplay = new GamePlay();
 
         private Point moveCardPoint;
 
@@ -35,8 +35,8 @@ namespace Krig.ViewModel
         {
             cards = new ObservableCollection<Cards>()
             {
-                new Cards() {IsSelected = false, X = 365, Y = 35},
-                new Cards() {IsSelected = false, X = 365, Y = 395}
+                //new Cards() {IsSelected = false, X = 365, Y = 35, CardValue = "1"},
+                //new Cards() {IsSelected = false, X = 365, Y = 395, CardValue = "2"}
             };
 
             UndoCommand = new RelayCommand(undoRedoController.Undo, undoRedoController.CanUndo);
@@ -52,7 +52,8 @@ namespace Krig.ViewModel
 
         public void DrawCard()
         {
-            undoRedoController.DrawAndExecute(new DrawCardCommand(cards, new Cards()));
+            int value = gameplay.drawACard().Value;
+            undoRedoController.DrawAndExecute(new DrawCardCommand(cards, new Cards(){CardValue = value.ToString()}));
         }
 
         public void MouseDownCard(MouseButtonEventArgs e)

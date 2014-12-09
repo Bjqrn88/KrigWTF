@@ -8,9 +8,9 @@
              Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid Height="50" Width="33">
+    <Grid ForceCursor="True" Cursor="Hand" Height="50" Width="33">
         <Rectangle Fill="AntiqueWhite"/>
-        <Label x:Name="PlayerCardLabel" Content="S" HorizontalAlignment="Center"  VerticalAlignment="Center" FontSize="20" IsEnabled="False"/>
+        <Label x:Name="PlayerCardLabel" Content="{Binding CardValue}" HorizontalAlignment="Center"  VerticalAlignment="Center" FontSize="20" IsEnabled="False"/>
     </Grid>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="MouseDown">

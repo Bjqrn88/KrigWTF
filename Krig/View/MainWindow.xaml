@@ -11,6 +11,7 @@
         <view:Ribbon DockPanel.Dock="Top"/>
         <Grid>
             <view:Board/>
+            <view:CardStackPlayer Margin="83,190,-83,-190"/>
             <ItemsControl ItemsSource="{Binding cards}"/>
         </Grid>
     </DockPanel>
