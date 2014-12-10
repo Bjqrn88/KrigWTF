@@ -77,7 +77,7 @@ namespace Krig.ViewModel
 
             for (int i = 0; i < warCards.Count; i++)
             {
-                undoRedoController.DrawAndExecute(new DrawCardCommand(cards, new Cards() { CardValue = warCards[i].Value.ToString(), X = x, Y = 205 }));
+                undoRedoController.DrawAndExecute(new DrawCardCommand(cards, new Cards() { CardValue = warCards[i].Value.ToString(), X = x, Y = 205 ,IsWar = true, WarNumber = i+1}));
                 x = x - 45;
             }
 
@@ -85,7 +85,7 @@ namespace Krig.ViewModel
             x = 400;
             for (int i = 0; i < warCards.Count; i++)
             {
-                undoRedoController.DrawAndExecute(new DrawCardCommand(cards, new Cards() { CardValue = warCPUCards[i].Value.ToString(), X = x, Y = 265 }));
+                undoRedoController.DrawAndExecute(new DrawCardCommand(cards, new Cards() { CardValue = warCPUCards[i].Value.ToString(), X = x, Y = 265, IsWar = true }));
                 x = x + 45;
             }
 
@@ -123,7 +123,6 @@ namespace Krig.ViewModel
 
         public void RemoveCard(IList _cards)
         {
-            _cards.Add(new Cards() {IsSelected = true});
             undoRedoController.DrawAndExecute(new RemoveCardCommand(cards, _cards.Cast<Cards>().ToList()));
         }
 

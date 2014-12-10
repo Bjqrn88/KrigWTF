@@ -18,7 +18,7 @@ namespace Krig.Model
         public int Y
         {
             get { return y; } 
-            set { y = value; NotifyPropertyChanged("Y"); }
+            set { y = value; NotifyPropertyChanged("Y");}
         }
         private bool isSelected;
 
@@ -33,7 +33,23 @@ namespace Krig.Model
         public String CardValue
         {
             get { return cardValue; }
-            set { cardValue = value; NotifyPropertyChanged("CardValue"); }
+            set { cardValue = value; NotifyPropertyChanged("CardValue");}
+        }
+
+        private int warNumber;
+
+        public int WarNumber
+        {
+            get { return warNumber; }
+            set { warNumber = value; NotifyPropertyChanged("WarNumber");}
+        }
+
+        private bool isWar; 
+
+        public bool IsWar
+        {
+            get { return isWar; }
+            set { isWar = value; NotifyPropertyChanged("IsWar");}
         }
 
         public Cards()
