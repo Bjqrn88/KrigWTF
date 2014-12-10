@@ -1,4 +1,4 @@
-MVVM -- Hvordan passer det ind i MVVM
+﻿MVVM -- Hvordan passer det ind i MVVM
 	View - 	Hele GUI'en til spillet, med knapper, animationer, kort, mm.
 	ViewModel -	interfacer mellem GUI og spil logik, og har bindings mellem forskellige 
 				dele af programmet
@@ -26,3 +26,10 @@ DLL -- Hvad skal den bruges til
 	
 Akritektur: 
 	Galasoft light
+
+
+
+TODO: 
+	Cards skal have flere attributter: CardType, WarNumber. 
+	Med disse attributter er det muligt at vælge det kort man vil bruge til krig.
+	

@@ -60,20 +60,33 @@ namespace Krig.ViewModel
             cpuCard = gameplay.getAICard();
             undoRedoController.DrawAndExecute(new DrawCardCommand(cards, new Cards(){CardValue = card. Value.ToString()}));
             undoRedoController.DrawAndExecute(new DrawCardCommand(cards, new Cards() { CardValue = cpuCard.Value.ToString(), X = 365, Y = 35}));
-            gameplay.playRound(card,cpuCard);
+            int result = gameplay.playRound(card,cpuCard);
+            if (result == 0)
+            {
+                DrawWar();
+            }
+            
         }
 
         public void DrawWar()
         {
-            int x = 365;
-            List<Card> warCards = new List<Card>();
-            warCards = gameplay.getWarCards();
+            int x = 330;
+            List<Card> warCards = new List<Card>(), warCPUCards = new List<Card>();
             gameplay.checkWarConditions();
+            warCards = gameplay.getWarCards();
 
             for (int i = 0; i < warCards.Count; i++)
             {
-                undoRedoController.DrawAndExecute(new DrawCardCommand(cards, new Cards() { CardValue = warCards[i].Value.ToString(), X = x, Y = 235 }));
-                x = x - 25;
+                undoRedoController.DrawAndExecute(new DrawCardCommand(cards, new Cards() { CardValue = warCards[i].Value.ToString(), X = x, Y = 205 }));
+                x = x - 45;
+            }
+
+            warCPUCards = gameplay.getAIWarCards();
+            x = 400;
+            for (int i = 0; i < warCards.Count; i++)
+            {
+                undoRedoController.DrawAndExecute(new DrawCardCommand(cards, new Cards() { CardValue = warCPUCards[i].Value.ToString(), X = x, Y = 265 }));
+                x = x + 45;
             }
 
         }
