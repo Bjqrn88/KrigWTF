@@ -33,3 +33,7 @@ TODO:
 	Cards skal have flere attributter: CardType, WarNumber. 
 	Med disse attributter er det muligt at vælge det kort man vil bruge til krig.
 	
+	Model til DLL
+	Gameplay til DLL
+	Save/Load
+	

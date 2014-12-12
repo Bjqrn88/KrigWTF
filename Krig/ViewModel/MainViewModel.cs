@@ -20,7 +20,7 @@ namespace Krig.ViewModel
         private UndoRedoController undoRedoController = UndoRedoController.GetInstance();
         private GamePlay gameplay = new GamePlay();
         private Card card,cpuCard;
-        
+        private List<Card> warCards = new List<Card>(), warCPUCards = new List<Card>();
 
         private Point moveCardPoint;
 
@@ -34,6 +34,8 @@ namespace Krig.ViewModel
         public ICommand MouseDownCardCommand { get; private set; }
         public ICommand MouseMoveCardCommand { get; private set; }
         public ICommand MouseUpCardCommand { get; private set; }
+
+        public ICommand ChooseForWarCommand { get; private set; }
 
         public MainViewModel()
         {
@@ -52,14 +54,28 @@ namespace Krig.ViewModel
             MouseMoveCardCommand = new RelayCommand<MouseEventArgs>(MouseMoveCard);
             MouseUpCardCommand = new RelayCommand<MouseButtonEventArgs>(MouseUpCard);
 
+            ChooseForWarCommand = new RelayCommand<MouseButtonEventArgs>(ChooseForWar);
+
+        }
+
+        public void ChooseForWar(MouseButtonEventArgs e)
+        {
+            FrameworkElement cardVisualElement = (FrameworkElement)e.MouseDevice.Target;
+            Cards cardsModel = (Cards)cardVisualElement.DataContext;
+
+            if (cardsModel.IsWar)
+            {
+                cardsModel.IsSelected = true;
+                gameplay.war(warCards, warCPUCards, cardsModel.WarNumber);
+            }
         }
 
         public void DrawCard()
         {
             card = gameplay.drawACard();
             cpuCard = gameplay.getAICard();
-            undoRedoController.DrawAndExecute(new DrawCardCommand(cards, new Cards(){CardValue = card. Value.ToString()}));
-            undoRedoController.DrawAndExecute(new DrawCardCommand(cards, new Cards() { CardValue = cpuCard.Value.ToString(), X = 365, Y = 35}));
+            undoRedoController.DrawAndExecute(new DrawCardCommand(cards, new Cards() { CardValue = card.Value.ToString(), IsWar = false, IsSelected = false}));
+            undoRedoController.DrawAndExecute(new DrawCardCommand(cards, new Cards() { CardValue = cpuCard.Value.ToString(), X = 365, Y = 35, IsWar = false, IsSelected = false }));
             int result = gameplay.playRound(card,cpuCard);
             if (result == 0)
             {
@@ -71,13 +87,13 @@ namespace Krig.ViewModel
         public void DrawWar()
         {
             int x = 330;
-            List<Card> warCards = new List<Card>(), warCPUCards = new List<Card>();
+
             gameplay.checkWarConditions();
             warCards = gameplay.getWarCards();
 
             for (int i = 0; i < warCards.Count; i++)
             {
-                undoRedoController.DrawAndExecute(new DrawCardCommand(cards, new Cards() { CardValue = warCards[i].Value.ToString(), X = x, Y = 205 ,IsWar = true, WarNumber = i+1}));
+                undoRedoController.DrawAndExecute(new DrawCardCommand(cards, new Cards() { CardValue = warCards[i].Value.ToString(), X = x, Y = 205, IsWar = true, WarNumber = i + 1, IsSelected = false }));
                 x = x - 45;
             }
 
@@ -85,7 +101,7 @@ namespace Krig.ViewModel
             x = 400;
             for (int i = 0; i < warCards.Count; i++)
             {
-                undoRedoController.DrawAndExecute(new DrawCardCommand(cards, new Cards() { CardValue = warCPUCards[i].Value.ToString(), X = x, Y = 265, IsWar = true }));
+                undoRedoController.DrawAndExecute(new DrawCardCommand(cards, new Cards() { CardValue = warCPUCards[i].Value.ToString(), X = x, Y = 265, IsWar = true, IsSelected = false }));
                 x = x + 45;
             }
 
