@@ -11,6 +11,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using Krig.Command;
 using Krig.Model;
+using Krig.Game;
 
 namespace Krig.ViewModel
 {

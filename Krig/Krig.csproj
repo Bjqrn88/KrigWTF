@@ -80,16 +80,10 @@
     <Compile Include="Command\MoveCardCommand.cs" />
     <Compile Include="Command\RemoveCardCommand.cs" />
     <Compile Include="Command\UndoRedoController.cs" />
-    <Compile Include="Model\Card.cs" />
     <Compile Include="Model\Cards.cs" />
     <Compile Include="Model\NotifyBase.cs" />
-    <Compile Include="Model\SaveGameData.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <EmbeddedResource Include="ViewModel\GamePlay.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
     <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\SaveLoad.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\board.xaml.cs">
       <DependentUpon>board.xaml</DependentUpon>
