@@ -13,30 +13,28 @@ namespace Krig.Game
         private Random random = new Random();
         int player1AdjustSize, player2AdjustSize;
 
-        public GamePlay()
+        public GamePlay() { }
+
+        public void newGame()
         {
-            Boolean fromSave = false;
-            SaveGameData savedGame = null;
-            if (fromSave == true && savedGame != null) //Load a saved game.
-            {
-                turnCounter = savedGame.NumberOfTurns;
-                deck1 = savedGame.Player1Deck;
-                deck2 = savedGame.Player2Deck;
-                swapPile1 = savedGame.Player1Swap;
-                swapPile2 = savedGame.Player2Swap;
-            }
-            else //Initialize new game.
-            {
-                generateDecks();
-                deck1 = shuffleDeck(deck1);
-                deck2 = shuffleDeck(deck2);
-                //Setup swap piles
-                swapPile1 = new List<Card>();
-                swapPile2 = new List<Card>();
-                warWinnings = new List<Card>();
-                turnCounter = 1;
-            }
-            //play();
+            generateDecks();
+            deck1 = shuffleDeck(deck1);
+            deck2 = shuffleDeck(deck2);
+            //Setup swap piles
+            swapPile1 = new List<Card>();
+            swapPile2 = new List<Card>();
+            warWinnings = new List<Card>();
+            turnCounter = 1;
+        }
+
+        public void loadGame(SaveGameData savedGame)
+        {
+            turnCounter = savedGame.NumberOfTurns;
+            deck1 = savedGame.Player1Deck;
+            deck2 = savedGame.Player2Deck;
+            swapPile1 = savedGame.Player1Swap;
+            swapPile2 = savedGame.Player2Swap;
+            warWinnings = new List<Card>();
         }
 
         public Boolean gameOver()
