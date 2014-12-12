@@ -84,7 +84,9 @@
     <Compile Include="Model\NotifyBase.cs" />
     <Compile Include="Model\SaveGameData.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="ViewModel\GamePlay.cs" />
+    <EmbeddedResource Include="ViewModel\GamePlay.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\SaveLoad.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
@@ -170,7 +172,12 @@
     <Resource Include="View\settings.png" />
     <Resource Include="View\undo.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Krig.Game\Krig.Game.csproj">
+      <Project>{2416e958-eb6c-469b-9b54-2f282e7959a1}</Project>
+      <Name>Krig.Game</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
