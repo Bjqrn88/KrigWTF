@@ -22,7 +22,8 @@ namespace Krig.ViewModel
     {
         private UndoRedoController undoRedoController = UndoRedoController.GetInstance();
         private GamePlay gameplay = new GamePlay();
-        private SaveLoad SL = new SaveLoad(new SaveGameData());
+        private static SaveGameData saveGameData = new SaveGameData();
+        private SaveLoad SL = new SaveLoad(saveGameData);
         //private Board b = new Board();
         private Card card,cpuCard;
         private List<Card> warCards = new List<Card>(), warCPUCards = new List<Card>();
@@ -80,6 +81,7 @@ namespace Krig.ViewModel
 
         private void SaveGame()
         {
+            gameplay.prepareSave(saveGameData);
             SL.saveGame();
         }
 
