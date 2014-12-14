@@ -11,16 +11,16 @@
             <r:RibbonTab Header="Commands">
                 <r:RibbonGroup>
                     <r:RibbonButton Label="New Game" Command="{Binding StartGameCommand}" Width="66" Height="65" LargeImageSource="new.png" Cursor="Hand"/>
-                    <r:RibbonButton Label="Load" Width="50" Height="65" LargeImageSource="load.png" Cursor="Hand"/>
+                    <r:RibbonButton Label="Load" Command="{Binding LoadGameCommand}" Width="50" Height="65" LargeImageSource="load.png" Cursor="Hand"/>
                     <r:RibbonButton Label="Save" Width="50" Height="65" LargeImageSource="save.png" Cursor="Hand"/>
                 </r:RibbonGroup>
                 <r:RibbonGroup>
                     <r:RibbonButton Label="Undo" Command="{Binding UndoCommand}" Width="50" Height="65" LargeImageSource="undo.png" Cursor="Hand"/>
                     <r:RibbonButton Label="Redo" Command="{Binding RedoCommand}" Width="50" Height="65" LargeImageSource="redo.png" Cursor="Hand"/>
                 </r:RibbonGroup>
-                <RibbonGroup>
-                    <r:RibbonButton Label="Settings" Width="50" Height="65" LargeImageSource="settings.png" Cursor="Hand"/>
-                </RibbonGroup>
+              <!--  <RibbonGroup>
+                    <r:RibbonButton Label="Settings" Command="{Binding ChangeBackgroundCommand}" Width="50" Height="65" LargeImageSource="settings.png" Cursor="Hand"/>
+                </RibbonGroup> -->
             </r:RibbonTab>
         </r:Ribbon>
     </Grid>

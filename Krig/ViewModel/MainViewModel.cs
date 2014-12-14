@@ -13,6 +13,7 @@ using GalaSoft.MvvmLight.CommandWpf;
 using Krig.Command;
 using Krig.Model;
 using Krig.Game;
+using Krig.View;
 
 namespace Krig.ViewModel
 {
@@ -21,8 +22,12 @@ namespace Krig.ViewModel
     {
         private UndoRedoController undoRedoController = UndoRedoController.GetInstance();
         private GamePlay gameplay = new GamePlay();
+        private Board b = new Board();
         private Card card,cpuCard;
         private List<Card> warCards = new List<Card>(), warCPUCards = new List<Card>();
+
+        //private int backColor = 0;
+        //private SolidColorBrush SCB = new SolidColorBrush();
 
         private bool ItsOn = false;
 
@@ -40,6 +45,8 @@ namespace Krig.ViewModel
         public ICommand MouseUpCardCommand { get; private set; }
         public ICommand StartGameCommand { get; private set; }
         public ICommand ChooseForWarCommand { get; private set; }
+        //public ICommand ChangeBackgroundCommand { get; private set; }
+        public ICommand LoadGameCommand { get; private set; }
 
         public MainViewModel()
         {
@@ -60,9 +67,59 @@ namespace Krig.ViewModel
 
             StartGameCommand = new RelayCommand(StartGame);
 
+            //ChangeBackgroundCommand = new RelayCommand(ChangeBackground);
+
+            LoadGameCommand = new RelayCommand(LoadGame);
+
             ChooseForWarCommand = new RelayCommand<MouseButtonEventArgs>(ChooseForWar);
 
         }
+
+        public void LoadGame()
+        {
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.DefaultExt = ".xml";
+            Nullable<bool> result = dlg.ShowDialog();
+
+            if (result == true)
+            {
+                String lll = dlg.InitialDirectory + dlg.FileName;
+                Console.WriteLine(lll);
+            }
+            String sll = dlg.InitialDirectory + dlg.FileName;
+            Console.WriteLine(sll);
+        }
+
+      /*  public void ChangeBackground()
+        {
+            switch (backColor)
+            {
+                case 0:
+                    b.BoardColor.Fill = new SolidColorBrush(Color.FromRgb(123,21,24));
+                    //SCB.Color = Color.FromRgb(123,21,24);
+                    break;
+                case 1:
+                    SCB.Color = Color.FromRgb(223,121,44);
+                    break;
+                case 2:
+                    SCB.Color = Color.FromRgb(123,221,44);
+                    break;
+                case 3:
+                    SCB.Color = Color.FromRgb(123,121,224);
+                    break;
+                case 4:
+                    SCB.Color = Color.FromRgb(23,121,224);
+                    break;  
+                case 5:
+                    SCB.Color = Color.FromRgb(123,21,224);
+                    break;
+                default:
+                    SCB.Color = Color.FromRgb(0,100,0);
+                    backColor = 0;
+                    break;
+            }
+            //b.BoardColor.Fill =  new SolidColorBrush();
+        }*/
 
         public void StartGame()
         {
