@@ -22,6 +22,7 @@ namespace Krig.ViewModel
     {
         private UndoRedoController undoRedoController = UndoRedoController.GetInstance();
         private GamePlay gameplay = new GamePlay();
+        private SaveLoad SL = new SaveLoad();
         private Board b = new Board();
         private Card card,cpuCard;
         private List<Card> warCards = new List<Card>(), warCPUCards = new List<Card>();
