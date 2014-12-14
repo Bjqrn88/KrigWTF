@@ -32,6 +32,7 @@ namespace Krig.Game
 
             System.IO.StreamWriter file = new System.IO.StreamWriter(
                 Path.Combine(path, @"krig.xml"));
+            Console.WriteLine(Path.Combine(path, @"krig.xml"));
             writer.Serialize(file, data);
             file.Close();
         }
