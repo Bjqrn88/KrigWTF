@@ -96,7 +96,8 @@ namespace Krig.ViewModel
 
             if (result == true)
             {
-                SL.loadFromXML(dlg.InitialDirectory + dlg.FileName);
+                Console.WriteLine(dlg.FileName);
+                SL.loadFromXML(dlg.FileName);
             }
         }
 
