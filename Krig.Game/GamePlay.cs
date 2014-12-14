@@ -37,6 +37,18 @@ namespace Krig.Game
             warWinnings = new List<Card>();
         }
 
+        public SaveGameData prepareSave(SaveGameData data)
+        {
+            data.NumberOfTurns = turnCounter;
+            data.Player1Deck = deck1;
+            data.Player1Swap = swapPile1;
+            data.Player2Deck = deck2;
+            data.Player2Swap = swapPile2;
+            Console.WriteLine("Saving");
+            SaveLoad save = new SaveLoad(data);
+            return data;
+        }
+
         public Boolean gameOver()
         {
             if (deck1.Count == 0 && swapPile1.Count == 0)
@@ -59,47 +71,11 @@ namespace Krig.Game
         {
             Console.WriteLine("Turn " + turnCounter + " begins");
 
-            /*    
-            if (turnCounter >= 10)
-                {
-                    
-                SaveGameData data = new SaveGameData();
-                
-                save.saveToXML();
-                break;
-                    
-            }
-            */
-
-            //Card player1Card = drawSingleCard(deck1);
-            //Console.WriteLine("Card 1: " + player1Card.Value);
-
-            //Card player2Card = drawSingleCard(deck2);
-            //Console.WriteLine("Card 2: " + player2Card.Value);
-
             //Declare war
             if (player1Card.Value == player2Card.Value)
             {
                 Console.WriteLine("War declared");
                 return 0;
-                /*
-                if (war())
-                {
-                    moveCards(warWinnings, swapPile1);
-                    swapPile1.Add(player1Card);
-                    swapPile1.Add(player2Card);
-                    warWinnings.Clear();
-                    Console.WriteLine("Player 1 wins war!");
-                }
-                else
-                {
-                    moveCards(warWinnings, swapPile2);
-                    swapPile2.Add(player1Card);
-                    swapPile2.Add(player2Card);
-                    warWinnings.Clear();
-                    Console.WriteLine("Player 2 wins war!");
-                }
-                */
             }
             //Player 1 wins
             else if (player1Card.Value > player2Card.Value)
@@ -144,24 +120,12 @@ namespace Krig.Game
             return 1;
         }
 
-        public SaveGameData prepareSave(SaveGameData data)
-        {
-            data.NumberOfTurns = turnCounter;
-            data.Player1Deck = deck1;
-            data.Player1Swap = swapPile1;
-            data.Player2Deck = deck2;
-            data.Player2Swap = swapPile2;
-            Console.WriteLine("Saving");
-            SaveLoad save = new SaveLoad(data);
-            return data;
-        }
-
-
         /**
          * Ensure players has enough cards for war.
          * Otherwise use fewer cards.
+         * If player has run out of cards, the game is lost(if 1 or 2 is returned).
         */
-        public void checkWarConditions()
+        public int checkWarConditions()
         {
             //Check players have enough cards.
             player1AdjustSize = 3;
@@ -171,10 +135,18 @@ namespace Krig.Game
                 moveCards(deck1, swapPile1);
                 deck1 = shuffleDeck(swapPile1);
 
-                if (deck1.Count < 4)
+                if (deck1.Count < 4 && deck1.Count != 0)
                 {
-                    Console.WriteLine("Player 1 count exception");
-                    player1AdjustSize = deck1.Count;
+                    if (deck1.Count != 0)
+                    {
+                        Console.WriteLine("Player 1 count exception");
+                        player1AdjustSize = deck1.Count;
+                    }
+                    else
+                    {
+                        return 1;
+                    }
+                    
                 }
             }
             if (deck2.Count < 4)
@@ -184,10 +156,18 @@ namespace Krig.Game
 
                 if (deck2.Count < 4)
                 {
-                    Console.WriteLine("Player 2 count exception");
-                    player2AdjustSize = deck2.Count;
+                    if (deck2.Count != 0)
+                    {
+                        Console.WriteLine("Player 2 count exception");
+                        player2AdjustSize = deck2.Count;
+                    }
+                    else
+                    {
+                        return 2;
+                    }
                 }
             }
+            return 0;
         }
 
         /**

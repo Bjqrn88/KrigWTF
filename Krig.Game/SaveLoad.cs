@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Krig.Game;
+using System.Threading;
 
 namespace Krig.Game
 {
@@ -15,8 +16,15 @@ namespace Krig.Game
             this.data = data;
         }
 
-        public void saveToXML()
+        public void saveGame()
         {
+            Thread thread = new Thread(new ThreadStart(saveToXML));
+            thread.Start();
+        }
+
+        private void saveToXML()
+        {
+            
             System.Xml.Serialization.XmlSerializer writer =
            new System.Xml.Serialization.XmlSerializer(typeof(SaveGameData));
 
