@@ -20,6 +20,8 @@ namespace Krig.ViewModel
 
     public class MainViewModel : ViewModelBase
     {
+        private String loadPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
         private UndoRedoController undoRedoController = UndoRedoController.GetInstance();
         private GamePlay gameplay = new GamePlay();
         private static SaveGameData saveGameData = new SaveGameData();
@@ -89,7 +91,7 @@ namespace Krig.ViewModel
         {
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
             dlg.DefaultExt = ".xml";
-            dlg.InitialDirectory = @"c:\";
+            dlg.InitialDirectory = loadPath;
             Nullable<bool> result = dlg.ShowDialog();
 
             if (result == true)
