@@ -90,13 +90,11 @@ namespace Krig.ViewModel
         public void LoadGame()
         {
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-            dlg.DefaultExt = ".xml";
             dlg.InitialDirectory = loadPath;
             Nullable<bool> result = dlg.ShowDialog();
 
             if (result == true)
             {
-                Console.WriteLine(dlg.FileName);
                 SL.loadFromXML(dlg.FileName);
             }
         }
