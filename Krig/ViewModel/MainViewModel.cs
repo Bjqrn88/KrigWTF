@@ -22,7 +22,8 @@ namespace Krig.ViewModel
     {
         private UndoRedoController undoRedoController = UndoRedoController.GetInstance();
         private GamePlay gameplay = new GamePlay();
-        private Board b = new Board();
+        private SaveLoad SL = new SaveLoad(new SaveGameData());
+        //private Board b = new Board();
         private Card card,cpuCard;
         private List<Card> warCards = new List<Card>(), warCPUCards = new List<Card>();
 
@@ -47,6 +48,7 @@ namespace Krig.ViewModel
         public ICommand ChooseForWarCommand { get; private set; }
         //public ICommand ChangeBackgroundCommand { get; private set; }
         public ICommand LoadGameCommand { get; private set; }
+        public ICommand SaveGameCommand { get; private set; }
 
         public MainViewModel()
         {
@@ -70,24 +72,28 @@ namespace Krig.ViewModel
             //ChangeBackgroundCommand = new RelayCommand(ChangeBackground);
 
             LoadGameCommand = new RelayCommand(LoadGame);
+            SaveGameCommand = new RelayCommand(SaveGame);
 
             ChooseForWarCommand = new RelayCommand<MouseButtonEventArgs>(ChooseForWar);
 
+        }
+
+        private void SaveGame()
+        {
+            SL.saveGame();
         }
 
         public void LoadGame()
         {
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
             dlg.DefaultExt = ".xml";
+            dlg.InitialDirectory = @"c:\";
             Nullable<bool> result = dlg.ShowDialog();
 
             if (result == true)
             {
-                String lll = dlg.InitialDirectory + dlg.FileName;
-                Console.WriteLine(lll);
+                SL.loadFromXML(dlg.InitialDirectory + dlg.FileName);
             }
-            String sll = dlg.InitialDirectory + dlg.FileName;
-            Console.WriteLine(sll);
         }
 
       /*  public void ChangeBackground()
