@@ -77,6 +77,7 @@
     <Compile Include="Command\ChangeBackgroundCommand.cs" />
     <Compile Include="Command\ChooseForWarCommand.cs" />
     <Compile Include="Command\LoadGameCommand.cs" />
+    <Compile Include="Command\SaveGameCommand.cs" />
     <Compile Include="Command\StartGameCommand.cs" />
     <Compile Include="Command\DrawCardCommand.cs" />
     <Compile Include="Command\IUndoRedoCommand.cs" />
