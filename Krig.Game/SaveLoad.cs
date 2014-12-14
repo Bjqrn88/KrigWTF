@@ -34,12 +34,12 @@ namespace Krig.Game
             file.Close();
         }
 
-        public SaveGameData loadFromXML()
+        public SaveGameData loadFromXML(String path)
         {
             System.Xml.Serialization.XmlSerializer reader =
         new System.Xml.Serialization.XmlSerializer(typeof(SaveGameData));
             System.IO.StreamReader file = new System.IO.StreamReader(
-                @"c:\Krig.xml");
+                path);
             SaveGameData loadedData = new SaveGameData();
             loadedData = (SaveGameData)reader.Deserialize(file);
 
