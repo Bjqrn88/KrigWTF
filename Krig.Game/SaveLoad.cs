@@ -42,7 +42,7 @@ namespace Krig.Game
             System.Xml.Serialization.XmlSerializer reader =
         new System.Xml.Serialization.XmlSerializer(typeof(SaveGameData));
             System.IO.StreamReader file = new System.IO.StreamReader(
-                path);
+                "@"+path);
             SaveGameData loadedData = new SaveGameData();
             loadedData = (SaveGameData)reader.Deserialize(file);
 
