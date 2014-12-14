@@ -39,6 +39,7 @@ namespace Krig.Game
 
         public SaveGameData loadFromXML(String path)
         {
+            Console.WriteLine(path);
             System.Xml.Serialization.XmlSerializer reader =
         new System.Xml.Serialization.XmlSerializer(typeof(SaveGameData));
             System.IO.StreamReader file = new System.IO.StreamReader(
