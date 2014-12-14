@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace Krig.Game
 {
-    class SaveLoad
+    public class SaveLoad
     {
         private SaveGameData data;
         public SaveLoad(SaveGameData data) 
