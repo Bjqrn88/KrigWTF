@@ -8,21 +8,18 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <r:Ribbon>
-            <!-- <RibbonTab Header="Test" />-->
             <r:RibbonTab Header="Commands">
-                <!-- kig her http://teusje.wordpress.com/2009/08/12/wpf-office-ribbon-control/ -->
                 <r:RibbonGroup>
-                    <r:RibbonButton Label="New Game" Width="66" Height="65" LargeImageSource="new.png"/>
-                    <r:RibbonButton Label="Load" Width="50" Height="65" LargeImageSource="load.png"/>
-                    <r:RibbonButton Label="Save" Width="50" Height="65" LargeImageSource="save.png"/>
+                    <r:RibbonButton Label="New Game" Command="{Binding StartGameCommand}" Width="66" Height="65" LargeImageSource="new.png" Cursor="Hand"/>
+                    <r:RibbonButton Label="Load" Width="50" Height="65" LargeImageSource="load.png" Cursor="Hand"/>
+                    <r:RibbonButton Label="Save" Width="50" Height="65" LargeImageSource="save.png" Cursor="Hand"/>
                 </r:RibbonGroup>
                 <r:RibbonGroup>
-                    <r:RibbonButton Label="Undo" Command="{Binding UndoCommand}" Width="50" Height="65" LargeImageSource="undo.png"/>
-                    <r:RibbonButton Label="Redo" Command="{Binding RedoCommand}" Width="50" Height="65" LargeImageSource="redo.png"/>
+                    <r:RibbonButton Label="Undo" Command="{Binding UndoCommand}" Width="50" Height="65" LargeImageSource="undo.png" Cursor="Hand"/>
+                    <r:RibbonButton Label="Redo" Command="{Binding RedoCommand}" Width="50" Height="65" LargeImageSource="redo.png" Cursor="Hand"/>
                 </r:RibbonGroup>
                 <RibbonGroup>
-                    <r:RibbonButton Label="Settings" Width="50" Height="65" LargeImageSource="settings.png"/>
-                    <r:RibbonButton Label="Cheat" Width="50" Height="65" LargeImageSource="cheat.png"/>
+                    <r:RibbonButton Label="Settings" Width="50" Height="65" LargeImageSource="settings.png" Cursor="Hand"/>
                 </RibbonGroup>
             </r:RibbonTab>
         </r:Ribbon>

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -23,6 +24,8 @@ namespace Krig.ViewModel
         private Card card,cpuCard;
         private List<Card> warCards = new List<Card>(), warCPUCards = new List<Card>();
 
+        private bool ItsOn = false;
+
         private Point moveCardPoint;
 
         public ObservableCollection<Cards> cards{ get; set; }
@@ -35,7 +38,7 @@ namespace Krig.ViewModel
         public ICommand MouseDownCardCommand { get; private set; }
         public ICommand MouseMoveCardCommand { get; private set; }
         public ICommand MouseUpCardCommand { get; private set; }
-
+        public ICommand StartGameCommand { get; private set; }
         public ICommand ChooseForWarCommand { get; private set; }
 
         public MainViewModel()
@@ -55,8 +58,16 @@ namespace Krig.ViewModel
             MouseMoveCardCommand = new RelayCommand<MouseEventArgs>(MouseMoveCard);
             MouseUpCardCommand = new RelayCommand<MouseButtonEventArgs>(MouseUpCard);
 
+            StartGameCommand = new RelayCommand(StartGame);
+
             ChooseForWarCommand = new RelayCommand<MouseButtonEventArgs>(ChooseForWar);
 
+        }
+
+        public void StartGame()
+        {
+            ItsOn = true;
+            gameplay.newGame();
         }
 
         public void ChooseForWar(MouseButtonEventArgs e)
@@ -66,23 +77,35 @@ namespace Krig.ViewModel
 
             if (cardsModel.IsWar)
             {
-                cardsModel.IsSelected = true;
-                gameplay.war(warCards, warCPUCards, cardsModel.WarNumber);
+                if (gameplay.war(warCards, warCPUCards, cardsModel.WarNumber) == 0)
+                    DrawWar();
             }
         }
 
         public void DrawCard()
         {
-            card = gameplay.drawACard();
-            cpuCard = gameplay.getAICard();
-            undoRedoController.DrawAndExecute(new DrawCardCommand(cards, new Cards() { CardValue = card.Value.ToString(), IsWar = false, IsSelected = false}));
-            undoRedoController.DrawAndExecute(new DrawCardCommand(cards, new Cards() { CardValue = cpuCard.Value.ToString(), X = 365, Y = 35, IsWar = false, IsSelected = false }));
-            int result = gameplay.playRound(card,cpuCard);
-            if (result == 0)
+            if (ItsOn)
             {
-                DrawWar();
+                card = gameplay.drawACard();
+                cpuCard = gameplay.getAICard();
+                undoRedoController.DrawAndExecute(new DrawCardCommand(cards,
+                    new Cards() {CardValue = card.Value.ToString(), IsWar = false, IsSelected = false}));
+                undoRedoController.DrawAndExecute(new DrawCardCommand(cards,
+                    new Cards()
+                    {
+                        CardValue = cpuCard.Value.ToString(),
+                        X = 365,
+                        Y = 35,
+                        IsWar = false,
+                        IsSelected = false
+                    }));
+                int result = gameplay.playRound(card, cpuCard);
+
+                if (result == 0)
+                {
+                    DrawWar();
+                }
             }
-            
         }
 
         public void DrawWar()
