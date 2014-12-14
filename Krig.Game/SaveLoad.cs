@@ -5,12 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Krig.Game;
 using System.Threading;
+using System.IO;
 
 namespace Krig.Game
 {
     public class SaveLoad
     {
         private SaveGameData data;
+        private String path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         public SaveLoad(SaveGameData data) 
         {
             this.data = data;
@@ -29,7 +31,7 @@ namespace Krig.Game
            new System.Xml.Serialization.XmlSerializer(typeof(SaveGameData));
 
             System.IO.StreamWriter file = new System.IO.StreamWriter(
-                @"c:\Krig.xml");
+                Path.Combine(path, @"krig.xml"));
             writer.Serialize(file, data);
             file.Close();
         }
