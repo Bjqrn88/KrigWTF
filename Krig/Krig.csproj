@@ -74,7 +74,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Command\ChangeBackgroundCommand.cs" />
     <Compile Include="Command\ChooseForWarCommand.cs" />
+    <Compile Include="Command\LoadGameCommand.cs" />
     <Compile Include="Command\StartGameCommand.cs" />
     <Compile Include="Command\DrawCardCommand.cs" />
     <Compile Include="Command\IUndoRedoCommand.cs" />

@@ -6,6 +6,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <Rectangle Fill="DarkGreen"/>
+        <Rectangle Fill="DarkGreen" x:Name="BoardColor"/>
     </Grid>
 </UserControl>
