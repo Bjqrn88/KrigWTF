@@ -12,7 +12,7 @@ namespace Krig.Game
     public class SaveLoad
     {
         private SaveGameData data;
-        private String path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        private String path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         public SaveLoad(SaveGameData data) 
         {
             this.data = data;
