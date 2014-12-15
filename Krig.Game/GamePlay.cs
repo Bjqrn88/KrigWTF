@@ -203,11 +203,13 @@ namespace Krig.Game
             //Player 1 wins
             if (player1Card.Value > player2Card.Value)
             {
+                moveCards(warWinnings, swapPile1);
                 return 1;
             }
             //Player 2 wins
             else if (player2Card.Value > player1Card.Value)
             {
+                moveCards(warWinnings, swapPile2);
                 return 2;
             }
             else
