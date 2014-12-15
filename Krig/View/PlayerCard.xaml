@@ -10,7 +10,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid ForceCursor="True" Cursor="Hand" Height="50" Width="33">
         <Grid.InputBindings>
-            <MouseBinding Gesture="LeftClick" Command="{Binding ChooseForWarCommand}"/>
+            <MouseBinding Gesture="LeftClick" Command="{Binding ChooseForWarCommand}" MouseAction="LeftClick"/>
         </Grid.InputBindings>
         <Rectangle Fill="AntiqueWhite"/>
         <Label x:Name="PlayerCardLabel" Content="{Binding CardValue}" HorizontalAlignment="Center"  VerticalAlignment="Center" FontSize="20" IsEnabled="False"/>
