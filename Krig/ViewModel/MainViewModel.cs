@@ -67,7 +67,7 @@ namespace Krig.ViewModel
             RedoCommand = new RelayCommand(undoRedoController.Redo, undoRedoController.CanRedo);
             DrawCardCommand = new RelayCommand(DrawCard);
             RemoveCardCommand = new RelayCommand(RemoveCard);
-
+            ChooseForWarCommand = new RelayCommand<MouseButtonEventArgs>(ChooseForWar);
             MouseDownCardCommand = new RelayCommand<MouseButtonEventArgs>(MouseDownCard);
             MouseMoveCardCommand = new RelayCommand<MouseEventArgs>(MouseMoveCard);
             MouseUpCardCommand = new RelayCommand<MouseButtonEventArgs>(MouseUpCard);
@@ -79,7 +79,7 @@ namespace Krig.ViewModel
             LoadGameCommand = new RelayCommand(LoadGame);
             SaveGameCommand = new RelayCommand(SaveGame);
 
-            ChooseForWarCommand = new RelayCommand<MouseButtonEventArgs>(ChooseForWar);
+
 
         }
 
