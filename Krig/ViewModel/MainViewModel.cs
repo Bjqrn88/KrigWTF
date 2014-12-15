@@ -39,6 +39,8 @@ namespace Krig.ViewModel
 
         public ObservableCollection<Cards> cards{ get; set; }
 
+        public List<Cards> CardToRemoveList = new List<Cards>();
+
         public ICommand UndoCommand { get; private set; }
         public ICommand RedoCommand { get; private set; }
 
@@ -64,7 +66,7 @@ namespace Krig.ViewModel
             UndoCommand = new RelayCommand(undoRedoController.Undo, undoRedoController.CanUndo);
             RedoCommand = new RelayCommand(undoRedoController.Redo, undoRedoController.CanRedo);
             DrawCardCommand = new RelayCommand(DrawCard);
-            RemoveCardCommand = new RelayCommand<IList>(RemoveCard);
+            RemoveCardCommand = new RelayCommand(RemoveCard);
 
             MouseDownCardCommand = new RelayCommand<MouseButtonEventArgs>(MouseDownCard);
             MouseMoveCardCommand = new RelayCommand<MouseEventArgs>(MouseMoveCard);
@@ -150,22 +152,27 @@ namespace Krig.ViewModel
 
         public void DrawCard()
         {
+            if(CardToRemoveList.Count > 0)
+                RemoveCard();
             if (ItsOn)
             {
                 card = gameplay.drawACard();
                 cpuCard = gameplay.getAICard();
-                undoRedoController.DrawAndExecute(new DrawCardCommand(cards,
-                    new Cards() {CardValue = card.Value.ToString(), IsWar = false, IsSelected = false}));
-                undoRedoController.DrawAndExecute(new DrawCardCommand(cards,
-                    new Cards()
+                var addCardPlayer = new Cards() {CardValue = card.Value.ToString(), IsWar = false, IsSelected = false};
+                var addCardCPU = new Cards()
                     {
                         CardValue = cpuCard.Value.ToString(),
                         X = 365,
                         Y = 35,
                         IsWar = false,
                         IsSelected = false
-                    }));
+                    };
+                undoRedoController.DrawAndExecute(new DrawCardCommand(cards,addCardPlayer));
+                undoRedoController.DrawAndExecute(new DrawCardCommand(cards,addCardCPU));
                 int result = gameplay.playRound(card, cpuCard);
+
+                CardToRemoveList.Add(addCardCPU);
+                CardToRemoveList.Add(addCardPlayer);
 
                 if (result == 0)
                 {
@@ -176,23 +183,44 @@ namespace Krig.ViewModel
 
         public void DrawWar()
         {
+            
             int x = 330;
-
+            Cards warCPU;
+            Cards warPlayer;
             gameplay.checkWarConditions();
             warCards = gameplay.getWarCards();
 
             for (int i = 0; i < warCards.Count; i++)
             {
-                undoRedoController.DrawAndExecute(new DrawCardCommand(cards, new Cards() { CardValue = warCards[i].Value.ToString(), X = x, Y = 205, IsWar = true, WarNumber = i + 1, IsSelected = false }));
+                warPlayer = new Cards()
+                {
+                    CardValue = warCards[i].Value.ToString(),
+                    X = x,
+                    Y = 205,
+                    IsWar = true,
+                    WarNumber = i + 1,
+                    IsSelected = false
+                };
+                undoRedoController.DrawAndExecute(new DrawCardCommand(cards, warPlayer));
                 x = x - 45;
+                CardToRemoveList.Add(warPlayer);
             }
 
             warCPUCards = gameplay.getAIWarCards();
             x = 400;
             for (int i = 0; i < warCards.Count; i++)
             {
-                undoRedoController.DrawAndExecute(new DrawCardCommand(cards, new Cards() { CardValue = warCPUCards[i].Value.ToString(), X = x, Y = 265, IsWar = true, IsSelected = false }));
+                warCPU = new Cards()
+                {
+                    CardValue = warCPUCards[i].Value.ToString(),
+                    X = x,
+                    Y = 265,
+                    IsWar = true,
+                    IsSelected = false
+                };
+                undoRedoController.DrawAndExecute(new DrawCardCommand(cards,warCPU));
                 x = x + 45;
+                CardToRemoveList.Add(warCPU);
             }
 
         }
@@ -227,9 +255,9 @@ namespace Krig.ViewModel
             e.MouseDevice.Target.ReleaseMouseCapture();
         }
 
-        public void RemoveCard(IList _cards)
+        public void RemoveCard()
         {
-            undoRedoController.DrawAndExecute(new RemoveCardCommand(cards, _cards.Cast<Cards>().ToList()));
+            undoRedoController.DrawAndExecute(new RemoveCardCommand(cards, CardToRemoveList));
         }
 
         private static T FindParentOfType<T>(DependencyObject o) where T : class
